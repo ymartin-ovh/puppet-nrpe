@@ -19,7 +19,7 @@
 # Copyright 2013 Computer Action Team, unless otherwise noted.
 #
 class nrpe(
-  $allowed_hosts = '127.0.0.1'
+  $allowed_hosts = ['127.0.0.1']
 ) inherits nrpe::params {
 
   package { 'nrpe_packages':
