@@ -8,6 +8,7 @@ class nrpe::params {
 
   case $::osfamily {
     'Debian':  {
+      $libdir           = '/usr/lib/nagios/plugins'
       $nrpe_user        = 'nagios'
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nagios/nrpe.pid'
@@ -20,6 +21,7 @@ class nrpe::params {
       ]
     }
     'Solaris': {
+      $libdir           = '/opt/csw/libexec/nagios-plugins'
       $nrpe_user        = 'nagios'
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nrpe.pid'
@@ -32,6 +34,7 @@ class nrpe::params {
       ]
     }
     'RedHat':  {
+      $libdir           = '/usr/lib64/nagios/plugins'
       $nrpe_user        = 'nrpe'
       $nrpe_group       = 'nrpe'
       $nrpe_pid_file    = '/var/run/nrpe/nrpe.pid'
