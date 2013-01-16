@@ -32,7 +32,7 @@ class nrpe::params {
       $nrpe_packages    = [
         'nrpe',
         'nrpe_plugin',
-        'nagiosp',
+        'nagios_plugins',
       ]
     }
     'RedHat':  {
