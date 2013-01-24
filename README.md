@@ -37,3 +37,10 @@ This define can be used to add nrpe commands to the include directory for nrpe
           command => 'check_users -w 5 -c 10';
     }
 
+To purge unmanaged nrpe commands:
+
+    class { 'nrpe':
+      allowed_hosts => ['127.0.0.1'],
+      purge         => true,
+      recurse       => true,
+    }

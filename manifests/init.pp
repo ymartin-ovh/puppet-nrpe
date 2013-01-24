@@ -19,7 +19,9 @@
 # Copyright 2013 Computer Action Team, unless otherwise noted.
 #
 class nrpe(
-  $allowed_hosts = ['127.0.0.1']
+  $allowed_hosts = ['127.0.0.1'],
+  $purge         = undef,
+  $recurse       = undef,
 ) inherits nrpe::params {
 
   package { 'nrpe_packages':
@@ -45,6 +47,8 @@ class nrpe(
   file { 'nrpe_include_dir':
     ensure  => directory,
     name    => $nrpe::params::nrpe_include_dir,
+    purge   => $purge,
+    recurse => $recurse,
     require => Package['nrpe_packages'],
   }
 
