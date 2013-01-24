@@ -27,7 +27,7 @@ This class installs the packages and configures the daemon.
     }
 
 
-### nrpe::commamd
+### nrpe::command
 
 This define can be used to add nrpe commands to the include directory for nrpe
 
