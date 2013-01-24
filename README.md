@@ -23,7 +23,7 @@ Usage
 This class installs the packages and configures the daemon.
 
     class { 'nrpe':
-        allowed_hosts => ['127.0.0.1', '10.208.8.8']
+        allowed_hosts => ['127.0.0.1', 'nagios.example.org']
     }
 
 

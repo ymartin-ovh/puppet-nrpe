@@ -8,4 +8,7 @@
 #
 # Learn more about module testing here: http://docs.puppetlabs.com/guides/tests_smoke.html
 #
-include nrpe
+
+class { 'nrpe':
+    allowed_hosts => ['127.0.0.1', 'nagios.example.com']
+}
