@@ -17,7 +17,6 @@ class nrpe::params {
       $nrpe_service     = 'nagios-nrpe-server'
       $nrpe_packages    = [
         'nagios-nrpe-server',
-        'nagios-nrpe-plugin',
         'nagios-plugins',
       ]
     }
@@ -31,7 +30,6 @@ class nrpe::params {
       $nrpe_service     = 'cswnrpe'
       $nrpe_packages    = [
         'nrpe',
-        'nrpe_plugin',
         'nagios_plugins',
       ]
     }
@@ -45,7 +43,6 @@ class nrpe::params {
       $nrpe_service     = 'nrpe'
       $nrpe_packages    = [
         'nrpe',
-        'nagios-plugins-nrpe',
         'nagios-plugins-all',
       ]
     }
