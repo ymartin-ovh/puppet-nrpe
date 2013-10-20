@@ -18,7 +18,7 @@
 #
 # Copyright 2013 Computer Action Team, unless otherwise noted.
 #
-class nrpe(
+class nrpe (
   $allowed_hosts = ['127.0.0.1'],
   $config        = $nrpe::params::nrpe_config,
   $include_dir   = $nrpe::params::nrpe_include_dir,
