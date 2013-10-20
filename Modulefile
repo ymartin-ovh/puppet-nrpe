@@ -1,5 +1,5 @@
 name    'pdxcat-nrpe'
-version '0.0.3'
+version '0.0.4'
 source 'https://github.com/pdxcat/puppet-module-nrpe'
 author 'Computer Action Team'
 license 'Apache License, Version 2.0'

@@ -1,3 +1,14 @@
+2013-10-20 Release 0.0.4
+
+Summary:
+
+This is a bug fix release
+
+Bug fixes:
+
+  - Fix puppet 3.x bug with array namevars
+  - Puppet lint fixes
+
 0.0.3 - pdxcat/nrpe - 2013/09/25
 
 53fc5f1 Add Rakefile, Gemfile and update .gitignore
