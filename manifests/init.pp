@@ -20,36 +20,40 @@
 #
 class nrpe(
   $allowed_hosts = ['127.0.0.1'],
+  $config        = $nrpe::params::nrpe_config,
+  $include_dir   = $nrpe::params::nrpe_include_dir,
+  $package_name  = $nrpe::params::nrpe_packages,
+  $provider      = $nrpe::params::nrpe_provider,
   $purge         = undef,
   $recurse       = undef,
-  $packages      = $nrpe::params::nrpe_packages,
+  $service_name  = $nrpe::params::nrpe_service,
 ) inherits nrpe::params {
 
-  package { $packages:
+  package { $package_name:
     ensure   => installed,
-    provider => $nrpe::params::nrpe_provider,
+    provider => $provider,
   }
 
   service { 'nrpe_service':
     ensure    => running,
-    name      => $nrpe::params::nrpe_service,
+    name      => $service_name,
     enable    => true,
-    require   => Package[$packages],
+    require   => Package[$package_name],
     subscribe => File['nrpe_config'],
   }
 
   file { 'nrpe_config':
-    name    => $nrpe::params::nrpe_config,
+    name    => $config,
     content => template('nrpe/nrpe.cfg.erb'),
     require => File['nrpe_include_dir'],
   }
 
   file { 'nrpe_include_dir':
     ensure  => directory,
-    name    => $nrpe::params::nrpe_include_dir,
+    name    => $include_dir,
     purge   => $purge,
     recurse => $recurse,
-    require   => Package[$packages],
+    require => Package[$package_name],
   }
 
 }

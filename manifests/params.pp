@@ -1,4 +1,4 @@
-
+#
 class nrpe::params {
 
   $nrpe_provider = $::osfamily ? {
