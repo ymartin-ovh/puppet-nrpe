@@ -18,7 +18,7 @@ Dependencies
 Usage
 -----
 
-### nrpe 
+### nrpe
 
 This class installs the packages and configures the daemon.
 
@@ -43,4 +43,14 @@ To purge unmanaged nrpe commands:
       allowed_hosts => ['127.0.0.1'],
       purge         => true,
       recurse       => true,
+    }
+
+### nrpe::plugin
+
+This define can be used to install nrpe plugins
+
+    nrpe::plugin {
+        'check_mem':
+          ensure => present,
+          source => 'puppet:///files/check_mem',
     }
