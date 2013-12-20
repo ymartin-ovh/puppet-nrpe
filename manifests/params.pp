@@ -25,8 +25,8 @@ class nrpe::params {
       $nrpe_user        = 'nagios'
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nrpe.pid'
-      $nrpe_config      = '/opt/csw/etc/nrpe.cfg'
-      $nrpe_include_dir = '/opt/csw/etc/nrpe.d'
+      $nrpe_config      = '/etc/opt/csw/nrpe.cfg'
+      $nrpe_include_dir = '/etc/opt/csw/nrpe.d'
       $nrpe_service     = 'cswnrpe'
       $nrpe_packages    = [
         'nrpe',
