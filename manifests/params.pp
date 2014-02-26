@@ -6,6 +6,11 @@ class nrpe::params {
     default   => undef,
   }
 
+  $nrpe_files_group = $::osfamily ? {
+    'FreeBSD' => 'wheel',
+    default   => 'root',
+  }
+
   case $::osfamily {
     'Debian':  {
       $libdir           = '/usr/lib/nagios/plugins'
@@ -47,6 +52,17 @@ class nrpe::params {
       ]
     }
     'FreeBSD': {
+      $libdir           = '/usr/local/libexec/nagios'
+      $nrpe_user        = 'nagios'
+      $nrpe_group       = 'nagios'
+      $nrpe_pid_file    = '/var/run/nrpe2/nrpe2.pid'
+      $nrpe_config      = '/usr/local/etc/nrpe.cfg'
+      $nrpe_include_dir = '/usr/local/etc/nrpe.d'
+      $nrpe_service     = 'nrpe2'
+      $nrpe_packages    = [
+        'nrpe',
+        'nagios-plugins',
+      ]
     }
     'Suse':  {
     }
