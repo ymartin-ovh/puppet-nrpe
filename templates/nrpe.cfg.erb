@@ -112,7 +112,7 @@ dont_blame_nrpe=0
 # the nagios user to your /etc/sudoers.  An example entry for alllowing
 # execution of the plugins from might be:
 #
-# nagios          ALL=(ALL) NOPASSWD: /usr/lib/nagios/plugins/
+# nagios          ALL=(ALL) NOPASSWD: <%= @libdir %>/
 #
 # This lets the nagios user run all commands in that directory (and only them)
 # without asking for a password.  If you do this, make sure you don't give
@@ -201,11 +201,11 @@ connection_timeout=300
 
 # The following examples use hardcoded command arguments...
 
-#command[check_users]=/usr/lib/nagios/plugins/check_users -w 5 -c 10
-#command[check_load]=/usr/lib/nagios/plugins/check_load -w 15,10,5 -c 30,25,20
-#command[check_hda1]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /dev/hda1
-#command[check_zombie_procs]=/usr/lib/nagios/plugins/check_procs -w 5 -c 10 -s Z
-#command[check_total_procs]=/usr/lib/nagios/plugins/check_procs -w 150 -c 200
+#command[check_users]=<%= @libdir %>/check_users -w 5 -c 10
+#command[check_load]=<%= @libdir %>/check_load -w 15,10,5 -c 30,25,20
+#command[check_hda1]=<%= @libdir %>/check_disk -w 20% -c 10% -p /dev/hda1
+#command[check_zombie_procs]=<%= @libdir %>/check_procs -w 5 -c 10 -s Z
+#command[check_total_procs]=<%= @libdir %>/check_procs -w 150 -c 200
 
 
 # The following examples allow user-supplied arguments and can
@@ -214,10 +214,10 @@ connection_timeout=300
 # config file is set to '1'.  This poses a potential security risk, so
 # make sure you read the SECURITY file before doing this.
 
-#command[check_users]=/usr/lib/nagios/plugins/check_users -w $ARG1$ -c $ARG2$
-#command[check_load]=/usr/lib/nagios/plugins/check_load -w $ARG1$ -c $ARG2$
-#command[check_disk]=/usr/lib/nagios/plugins/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
-#command[check_procs]=/usr/lib/nagios/plugins/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$
+#command[check_users]=<%= @libdir %>/check_users -w $ARG1$ -c $ARG2$
+#command[check_load]=<%= @libdir %>/check_load -w $ARG1$ -c $ARG2$
+#command[check_disk]=<%= @libdir %>/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
+#command[check_procs]=<%= @libdir %>/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$
 
 #
 # local configuration:
