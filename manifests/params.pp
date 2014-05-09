@@ -11,6 +11,8 @@ class nrpe::params {
     default   => 'root',
   }
 
+  $dont_blame_nrpe = 0
+
   case $::osfamily {
     'Debian':  {
       $libdir           = '/usr/lib/nagios/plugins'

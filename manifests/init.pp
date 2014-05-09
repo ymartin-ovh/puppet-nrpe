@@ -20,13 +20,14 @@
 #
 class nrpe (
   $allowed_hosts = ['127.0.0.1'],
-  $config        = $nrpe::params::nrpe_config,
-  $include_dir   = $nrpe::params::nrpe_include_dir,
-  $package_name  = $nrpe::params::nrpe_packages,
-  $provider      = $nrpe::params::nrpe_provider,
-  $purge         = undef,
-  $recurse       = undef,
-  $service_name  = $nrpe::params::nrpe_service,
+  $config          = $nrpe::params::nrpe_config,
+  $include_dir     = $nrpe::params::nrpe_include_dir,
+  $package_name    = $nrpe::params::nrpe_packages,
+  $provider        = $nrpe::params::nrpe_provider,
+  $purge           = undef,
+  $recurse         = undef,
+  $service_name    = $nrpe::params::nrpe_service,
+  $dont_blame_nrpe = $nrpe::params::dont_blame_nrpe,
 ) inherits nrpe::params {
 
   package { $package_name:
