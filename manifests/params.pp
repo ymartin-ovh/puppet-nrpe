@@ -39,7 +39,10 @@ class nrpe::params {
       ]
     }
     'RedHat':  {
-      $libdir           = '/usr/lib64/nagios/plugins'
+      $libdir           = $::architecture ? {
+        /x86_64/ => '/usr/lib64/nagios/plugins',
+        default  => '/usr/lib/nagios/plugins',
+      }
       $nrpe_user        = 'nrpe'
       $nrpe_group       = 'nrpe'
       $nrpe_pid_file    = '/var/run/nrpe/nrpe.pid'
