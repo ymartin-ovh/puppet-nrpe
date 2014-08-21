@@ -21,6 +21,7 @@
 class nrpe (
   $allowed_hosts = ['127.0.0.1'],
   $server_address = '0.0.0.0',
+  $command_timeout = 60,
   $config          = $nrpe::params::nrpe_config,
   $include_dir     = $nrpe::params::nrpe_include_dir,
   $package_name    = $nrpe::params::nrpe_packages,
