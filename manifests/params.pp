@@ -112,4 +112,11 @@ class nrpe::params {
     }
   }
 
+  $dont_blame_nrpe                 = 0
+  $allow_bash_command_substitution = undef # not in very old NRPE
+  $log_facility                    = 'daemon'
+  $server_port                     = 5666
+  $command_prefix                  = undef
+  $debug                           = 0
+  $connection_timeout              = 300
 }

@@ -18,7 +18,7 @@
 # LOG FACILITY
 # The syslog facility that should be used for logging purposes.
 
-log_facility=daemon
+log_facility=<%= @nrpe_log_facility %>
 
 
 
@@ -36,7 +36,7 @@ pid_file=<%= @nrpe_pid_file %>
 # NOTE: This must be a non-priviledged port (i.e. > 1024).
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-server_port=5666
+server_port=<%= @nrpe_server_port %>
 
 
 
@@ -101,6 +101,27 @@ dont_blame_nrpe=<%= @dont_blame_nrpe %>
 
 
 
+# BASH COMMAND SUBTITUTION
+# This option determines whether or not the NRPE daemon will allow clients
+# to specify arguments that contain bash command substitutions of the form
+# $(...).  This option only works if the daemon was configured with both
+# the --enable-command-args and --enable-bash-command-substitution configure
+# script options.
+#
+# *** ENABLING THIS OPTION IS A HIGH SECURITY RISK! ***
+# Read the SECURITY file for information on some of the security implications
+# of enabling this variable.
+#
+# Values: 0=do not allow bash command substitutions,
+#         1=allow bash command substitutions
+
+#allow_bash_command_substitution=0
+<%- if @allow_bash_command_substitution -%>
+allow_bash_command_substitution=<%= @allow_bash_command_substitution %>
+<%- end -%>
+
+
+
 # COMMAND PREFIX
 # This option allows you to prefix all commands with a user-defined string.
 # A space is automatically added between the specified prefix string and the
@@ -119,6 +140,9 @@ dont_blame_nrpe=<%= @dont_blame_nrpe %>
 # random users write access to that directory or its contents!
 
 # command_prefix=/usr/bin/sudo
+<%- if @command_prefix -%>
+command_prefix=<%= @command_prefix %>
+<%- end -%>
 
 
 
@@ -127,7 +151,7 @@ dont_blame_nrpe=<%= @dont_blame_nrpe %>
 # syslog facility.
 # Values: 0=debugging off, 1=debugging on
 
-debug=0
+debug=<%= @debug %>
 
 
 
@@ -146,7 +170,7 @@ command_timeout=<%= @command_timeout %>
 # all network sessions are connected. This causes the nrpe daemons to
 # accumulate, eating system resources. Do not set this too low.
 
-connection_timeout=300
+connection_timeout=<%= @connection_timeout %>
 
 
 
