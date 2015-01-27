@@ -87,13 +87,26 @@ class nrpe::params {
       $nrpe_user        = 'nagios'
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nrpe/nrpe.pid'
-      $nrpe_config      = '/etc/nrpe.cfg'
-      $nrpe_include_dir = '/etc/nrpe.d/'
       $nrpe_service     = 'nrpe'
-      $nrpe_packages    = [
-        'nrpe',
-        'nagios-plugins-all',
-      ]
+      case $::operatingsystem {
+        'SLES': {
+          $nrpe_config      = '/etc/nagios/nrpe.cfg'
+          $nrpe_include_dir = '/etc/nagios/nrpe.d/'
+          $nrpe_packages    = [
+            'nagios-nrpe',
+            'nagios-plugins',
+            'nagios-plugins-nrpe',
+          ]
+        }
+        default:   {
+          $nrpe_config      = '/etc/nrpe.cfg'
+          $nrpe_include_dir = '/etc/nrpe.d/'
+          $nrpe_packages    = [
+            'nrpe',
+            'nagios-plugins-all',
+          ]
+        }
+      }
     }
     'OpenBSD': {
       $libdir           = '/usr/local/libexec/nagios'
