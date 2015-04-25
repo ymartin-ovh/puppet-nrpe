@@ -108,19 +108,6 @@ class nrpe::params {
         }
       }
     }
-    'OpenBSD': {
-      $libdir           = '/usr/local/libexec/nagios'
-      $nrpe_user        = '_nrpe'
-      $nrpe_group       = '_nrpe'
-      $nrpe_pid_file    = '/var/run/nrpe/nrpe.pid'
-      $nrpe_config      = '/etc/nrpe.cfg'
-      $nrpe_include_dir = '/etc/nrpe.d'
-      $nrpe_service     = 'nrpe'
-      $nrpe_packages    = [
-        'nrpe',
-        'monitoring-plugins',
-      ]
-    }
     default:   {
     }
   }
