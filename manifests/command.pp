@@ -13,7 +13,7 @@ define nrpe::command (
   file { "${include_dir}/${title}.cfg":
     ensure  => $ensure,
     content => template('nrpe/command.cfg.erb'),
-    owner   => root,
+    owner   => 'root',
     group   => $file_group,
     mode    => '0644',
     require => Package[$package_name],
