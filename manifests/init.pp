@@ -39,7 +39,7 @@ class nrpe (
   $nrpe_user       = $nrpe::params::nrpe_user,
   $nrpe_group      = $nrpe::params::nrpe_group,
   $nrpe_pid_file   = $nrpe::params::nrpe_pid_file,
-) {
+) inherits nrpe::params {
 
   package { $package_name:
     ensure   => installed,
