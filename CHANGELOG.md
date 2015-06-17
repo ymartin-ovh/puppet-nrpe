@@ -1,3 +1,28 @@
+2015-06-16 Release 2.0.0
+
+* Add Gentoo support.
+* Re-add inherit params.
+* Allow hiera-based override of nrpe user/group/pid.
+* Fix variable naming.
+* 1ca413e Add all other NRPE config parameters: allow_bash_command_substitution, log_facility, server_port, command_prefix, debug, connection_timeout; also add dont_blame_nrpe to nrpe::params.
+* Add support for SLES
+* Added support to set file mode of plugin file
+* Added support for the 'content' attribute for a plugin
+* Added sudo support
+* Add support for OpenBSD.
+* Make command_timeout configurable.
+* Allow to specify fully qualified commands.
+* Specify server_address in nrpe class.
+* change package name from nrpe2 to nrpe for freebsd
+* add 32bit architecture for RedHat OS family
+* removed dont_blame_nrpe from params
+* Fixed typo, missing bracket after list in params.pp near line 78
+* corrected syntax
+* added dont_blame_nrpe
+* corrected FreeBSD package names
+* added SUSE default params
+* cfg template w/ @libdir fact
+
 ## 2014-02-26 Release 1.0.0
 ### Summary:
 
@@ -45,5 +70,4 @@ This is a bug fix release
 - Add redhat params to nrpe
 - Change allowed_hosts from a string to an array
 - Initial commit for nrpe module
-
 
