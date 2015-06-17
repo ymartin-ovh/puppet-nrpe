@@ -1,6 +1,9 @@
 NRPE Module for Puppet
 ======================
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/pdxcat/nrpe.svg)](https://forge.puppetlabs.com/pdxcat/nrpe) [![Build Status](https://travis-ci.org/pdxcat/puppet-module-nrpe.png?branch=master)](https://travis-ci.org/pdxcat/puppet-module-nrpe)
+
+
 This module installs and configures nrpe.
 
 Dependencies
