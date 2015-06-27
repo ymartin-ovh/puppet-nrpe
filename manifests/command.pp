@@ -2,10 +2,10 @@
 define nrpe::command (
   $command,
   $ensure       = present,
-  $include_dir  = $nrpe::params::nrpe_include_dir,
+  $include_dir  = $nrpe::include_dir,
+  $package_name = $nrpe::package_name,
+  $service_name = $nrpe::service_name,
   $libdir       = $nrpe::params::libdir,
-  $package_name = $nrpe::params::nrpe_packages,
-  $service_name = $nrpe::params::nrpe_service,
   $file_group   = $nrpe::params::nrpe_files_group,
   $sudo         = false,
 ) {
