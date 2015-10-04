@@ -20,7 +20,7 @@ class nrpe::params {
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nagios/nrpe.pid'
       $nrpe_config      = '/etc/nagios/nrpe.cfg'
-      $nrpe_include_dir = '/etc/nagios/nrpe.d/'
+      $nrpe_include_dir = '/etc/nagios/nrpe.d'
       $nrpe_service     = 'nagios-nrpe-server'
       $nrpe_packages    = [
         'nagios-nrpe-server',
@@ -91,7 +91,7 @@ class nrpe::params {
       case $::operatingsystem {
         'SLES': {
           $nrpe_config      = '/etc/nagios/nrpe.cfg'
-          $nrpe_include_dir = '/etc/nagios/nrpe.d/'
+          $nrpe_include_dir = '/etc/nagios/nrpe.d'
           $nrpe_packages    = [
             'nagios-nrpe',
             'nagios-plugins',
@@ -100,7 +100,7 @@ class nrpe::params {
         }
         default:   {
           $nrpe_config      = '/etc/nrpe.cfg'
-          $nrpe_include_dir = '/etc/nrpe.d/'
+          $nrpe_include_dir = '/etc/nrpe.d'
           $nrpe_packages    = [
             'nrpe',
             'nagios-plugins-all',
