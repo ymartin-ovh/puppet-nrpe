@@ -49,7 +49,7 @@ class nrpe (
     }
   }
 
-  service { 'nrpe_service':
+  service { $service_name:
     ensure    => running,
     name      => $service_name,
     enable    => true,
