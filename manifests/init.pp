@@ -45,7 +45,7 @@ class nrpe (
   if $manage_package {
     package { $package_name:
       ensure   => installed,
-      provider => $nrpe::params::provider,
+      provider => $provider,
     }
   }
 
