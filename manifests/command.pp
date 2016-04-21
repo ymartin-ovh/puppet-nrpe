@@ -8,6 +8,7 @@ define nrpe::command (
   $libdir       = $nrpe::params::libdir,
   $file_group   = $nrpe::params::nrpe_files_group,
   $sudo         = false,
+  $sudo_user    = 'root',
 ) {
 
   file { "${include_dir}/${title}.cfg":
