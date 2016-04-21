@@ -5,7 +5,9 @@ describe 'nrpe::command', :type => :define do
     let(:pre_condition) { 'include nrpe' }
 
     let :facts do
-     { :osfamily => 'Debian', }
+     { :osfamily     => 'Debian',
+       :architecture => 'x86_64',
+    }
     end
 
     let (:title) {'check_users'}
