@@ -1,3 +1,12 @@
+2016-06-07 Release 2.1.0
+
+* Take the parameters given to the module into account, rather than the
+* defaults from the params.pp when creating commands.
+* Fix nrpe::include_dir bug 
+* make management of nrpe package optional
+* Use variable for title of service resource to be consistent
+* Allow other users than root to be sudoed
+
 2015-06-16 Release 2.0.0
 
 * Add Gentoo support.
