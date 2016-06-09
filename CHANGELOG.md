@@ -1,3 +1,7 @@
+2016-06-09 Release 2.1.1
+
+* Fix file perms
+
 2016-06-07 Release 2.1.0
 
 * Take the parameters given to the module into account, rather than the
