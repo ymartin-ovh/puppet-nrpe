@@ -40,6 +40,19 @@ class nrpe (
   $nrpe_user       = $nrpe::params::nrpe_user,
   $nrpe_group      = $nrpe::params::nrpe_group,
   $nrpe_pid_file   = $nrpe::params::nrpe_pid_file,
+  $nrpe_ssl_dir    = $nrpe::params::nrpe_ssl_dir,
+  $ssl_cert_file_content       = undef,
+  $ssl_privatekey_file_content = undef,
+  $ssl_cacert_file_content     = undef,
+  $ssl_version                 = $nrpe::params::ssl_version,
+  $ssl_ciphers                 = $nrpe::params::ssl_ciphers,
+  $ssl_client_certs            = $nrpe::params::ssl_client_certs,
+  $ssl_log_startup_params      = false,
+  $ssl_log_remote_ip           = false,
+  $ssl_log_protocol_version    = false,
+  $ssl_log_cipher              = false,
+  $ssl_log_client_cert         = false,
+  $ssl_log_client_cert_details = false,
 ) inherits nrpe::params {
 
   if $manage_package {
@@ -61,6 +74,39 @@ class nrpe (
     name    => $config,
     content => template('nrpe/nrpe.cfg.erb'),
     require => File['nrpe_include_dir'],
+  }
+
+  if $ssl_cert_file_content {
+    file { $nrpe_ssl_dir:
+      ensure => directory,
+      owner  => 'root',
+      group  => $nrpe_group,
+      mode   => '0750',
+    }
+    file { "${nrpe_ssl_dir}/ca-cert.pem":
+      ensure  => file,
+      owner   => 'root',
+      group   => $nrpe_group,
+      mode    => '0640',
+      content => $ssl_cacert_file_content,
+      notify  => Service[$service_name],
+    }
+    file { "${nrpe_ssl_dir}/nrpe-cert.pem":
+      ensure  => file,
+      owner   => 'root',
+      group   => $nrpe_group,
+      mode    => '0640',
+      content => $ssl_cert_file_content,
+      notify  => Service[$service_name],
+    }
+    file { "${nrpe_ssl_dir}/nrpe-key.pem":
+      ensure  => file,
+      owner   => 'root',
+      group   => $nrpe_group,
+      mode    => '0640',
+      content => $ssl_privatekey_file_content,
+      notify  => Service[$service_name],
+    }
   }
 
   file { 'nrpe_include_dir':

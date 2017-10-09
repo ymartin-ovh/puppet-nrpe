@@ -20,6 +20,7 @@ class nrpe::params {
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nagios/nrpe.pid'
       $nrpe_config      = '/etc/nagios/nrpe.cfg'
+      $nrpe_ssl_dir     = '/etc/nagios/nrpe-ssl'
       $nrpe_include_dir = '/etc/nagios/nrpe.d'
       $nrpe_service     = 'nagios-nrpe-server'
       $nrpe_packages    = [
@@ -33,6 +34,7 @@ class nrpe::params {
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nrpe.pid'
       $nrpe_config      = '/etc/opt/csw/nrpe.cfg'
+      $nrpe_ssl_dir     = '/etc/opt/csw/nrpe-ssl'
       $nrpe_include_dir = '/etc/opt/csw/nrpe.d'
       $nrpe_service     = 'cswnrpe'
       $nrpe_packages    = [
@@ -49,6 +51,7 @@ class nrpe::params {
       $nrpe_group       = 'nrpe'
       $nrpe_pid_file    = '/var/run/nrpe/nrpe.pid'
       $nrpe_config      = '/etc/nagios/nrpe.cfg'
+      $nrpe_ssl_dir     = '/etc/nagios/nrpe-ssl'
       $nrpe_include_dir = '/etc/nrpe.d'
       $nrpe_service     = 'nrpe'
       $nrpe_packages    = [
@@ -62,6 +65,7 @@ class nrpe::params {
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nrpe2/nrpe2.pid'
       $nrpe_config      = '/usr/local/etc/nrpe.cfg'
+      $nrpe_ssl_dir     = '/usr/local/etc/nrpe-ssl'
       $nrpe_include_dir = '/usr/local/etc/nrpe.d'
       $nrpe_service     = 'nrpe2'
       $nrpe_packages    = [
@@ -75,6 +79,7 @@ class nrpe::params {
       $nrpe_group       = '_nrpe'
       $nrpe_pid_file    = '/var/run/nrpe/nrpe.pid'
       $nrpe_config      = '/etc/nrpe.cfg'
+      $nrpe_ssl_dir     = '/etc/nrpe-ssl'
       $nrpe_include_dir = '/etc/nrpe.d'
       $nrpe_service     = 'nrpe'
       $nrpe_packages    = [
@@ -91,6 +96,7 @@ class nrpe::params {
       case $::operatingsystem {
         'SLES': {
           $nrpe_config      = '/etc/nagios/nrpe.cfg'
+          $nrpe_ssl_dir     = '/etc/nagios/nrpe-ssl'
           $nrpe_include_dir = '/etc/nagios/nrpe.d'
           $nrpe_packages    = [
             'nagios-nrpe',
@@ -100,6 +106,7 @@ class nrpe::params {
         }
         default:   {
           $nrpe_config      = '/etc/nrpe.cfg'
+          $nrpe_ssl_dir     = '/etc/nrpe-ssl'
           $nrpe_include_dir = '/etc/nrpe.d'
           $nrpe_packages    = [
             'nrpe',
@@ -117,6 +124,7 @@ class nrpe::params {
       $nrpe_group       = 'nagios'
       $nrpe_pid_file    = '/var/run/nrpe.pid'
       $nrpe_config      = '/etc/nagios/nrpe.cfg'
+      $nrpe_ssl_dir     = '/etc/nagios/nrpe-ssl'
       $nrpe_include_dir = '/etc/nagios/nrpe.d'
       $nrpe_service     = 'nrpe'
       $nrpe_packages    = [
@@ -135,4 +143,15 @@ class nrpe::params {
   $command_prefix                  = undef
   $debug                           = 0
   $connection_timeout              = 300
+
+  $ssl_version                 = 'TLSv1.2+'
+  $ssl_ciphers                 = [
+    'DHE-RSA-AES128-GCM-SHA256',
+    'DHE-RSA-AES256-GCM-SHA384',
+    'DHE-RSA-AES128-SHA',
+    'DHE-RSA-AES256-SHA',
+    'DHE-RSA-AES128-SHA256',
+    'DHE-RSA-AES256-SHA256',
+  ]
+  $ssl_client_certs            = 1
 }
