@@ -1,6 +1,10 @@
-# default nrpe checks
+# test purging nrpe checks
 
-include nrpe
+class { 'nrpe':
+  allowed_hosts => ['127.0.0.1'],
+  purge         => true,
+  recurse       => true,
+}
 
 nrpe::command {
   'check_users':
@@ -12,5 +16,5 @@ nrpe::command {
   'check_zombie_procs':
     command => 'check_procs -w 5 -c 10 -s Z';
   'check_total_procs':
-    command => 'check_procs -w 150 -c 200'
+    command => 'check_procs -w 150 -c 200';
 }
