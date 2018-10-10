@@ -24,4 +24,10 @@ describe 'nrpe' do
 
     it { is_expected.to contain_concat_fragment('nrpe ssl fragment') }
   end
+
+  context 'when supplementary_groups set' do
+    let(:params) { { supplementary_groups: %w[foo bar] } }
+
+    it { is_expected.to contain_user('nrpe').with_groups(%w[foo bar]).that_requires('Package[nrpe]') }
+  end
 end

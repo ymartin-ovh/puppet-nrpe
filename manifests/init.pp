@@ -54,6 +54,7 @@ class nrpe (
   Boolean                              $ssl_log_client_cert             = false,
   Boolean                              $ssl_log_client_cert_details     = false,
   Stdlib::Filemode                     $command_file_default_mode       = '0644',
+  Array[String[1]]                     $supplementary_groups            = [],
 ) inherits nrpe::params {
 
   if $manage_package {
@@ -68,6 +69,15 @@ class nrpe (
     }
   }
 
+  unless $supplementary_groups.empty {
+    user { $nrpe_user:
+      gid    => $nrpe_group,
+      groups => $supplementary_groups,
+    }
+    # Let the package create the user.  We're only managing its groups.
+    if $manage_package { Package[$package_name] -> User[$nrpe_user] }
+  }
+
   service { $service_name:
     ensure    => running,
     name      => $service_name,
@@ -76,7 +86,7 @@ class nrpe (
   }
 
   concat { $config:
-    ensure  => present,
+    ensure => present,
   }
 
   $_allow_bash_command_substitution = $allow_bash_command_substitution ? {
