@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'nrpe' do
   let :facts do
-    { osfamily: 'RedHat' ,
+    { osfamily: 'RedHat',
       architecture: 'x86_64' }
   end
 
