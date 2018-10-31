@@ -1,4 +1,20 @@
 {
+  "name": "puppet-nrpe",
+  "version": "3.0.0-rc1",
+  "source": "https://github.com/voxpupuli/puppet-nrpe",
+  "author": "Vox Pupuli",
+  "license": "Apache-2.0",
+  "summary": "Puppet module for NRPE",
+  "project_page": "https://github.com/voxpupuli/puppet-nrpe",
+  "issues_url": "https://github.com/voxpupuli/puppet-nrpe/issues",
+  "dependencies": [
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
+    }
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
@@ -58,19 +74,5 @@
     {
       "operatingsystem": "Archlinux"
     }
-  ],
-  "requirements": [
-    {
-      "name": "puppet",
-      "version_requirement": ">= 3.2.0"
-    }
-  ],
-  "name": "pdxcat-nrpe",
-  "version": "2.1.1",
-  "source": "https://github.com/pdxcat/puppet-module-nrpe",
-  "author": "Computer Action Team",
-  "license": "Apache-2.0",
-  "summary": "Puppet module for NRPE",
-  "project_page": "https://github.com/pdxcat/puppet-module-nrpe",
-  "dependencies": []
+  ]
 }
