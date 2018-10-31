@@ -8,7 +8,7 @@ describe 'nrpe::plugin', type: :define do
        architecture: 'x86_64', }
     end
 
-    let (:title) {'check_users'}
+    let (:title) { 'check_users' }
     let :params do
       {
         ensure: 'present',

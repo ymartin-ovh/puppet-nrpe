@@ -9,7 +9,7 @@ describe 'nrpe::command', type: :define do
     }
     end
 
-    let (:title) {'check_users'}
+    let (:title) { 'check_users' }
     let :params do
       {
         command: 'check_users -w 5 -c 10',
