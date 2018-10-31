@@ -63,6 +63,7 @@ class nrpe (
       before   => [
         Service[$service_name],
         File['nrpe_include_dir'],
+        Concat[$config],
       ],
     }
   }
@@ -71,16 +72,60 @@ class nrpe (
     ensure    => running,
     name      => $service_name,
     enable    => true,
-    subscribe => File['nrpe_config'],
+    subscribe => Concat[$config],
   }
 
-  file { 'nrpe_config':
-    name    => $config,
-    content => template('nrpe/nrpe.cfg.erb'),
-    require => File['nrpe_include_dir'],
+  concat { $config:
+    ensure  => present,
+  }
+
+  concat::fragment { 'nrpe main config':
+    target  => $config,
+    content => epp(
+      'nrpe/nrpe.cfg.epp',
+      {
+        'log_facility'                    => $log_facility,
+        'nrpe_pid_file'                   => $nrpe_pid_file,
+        'server_port'                     => $server_port,
+        'server_address'                  => $server_address,
+        'nrpe_user'                       => $nrpe_user,
+        'nrpe_group'                      => $nrpe_group,
+        'allowed_hosts'                   => $allowed_hosts,
+        'dont_blame_nrpe'                 => "${dont_blame_nrpe}",
+        'allow_bash_command_substitution' => $allow_bash_command_substitution,
+        'libdir'                          => $nrpe::params::libdir,
+        'command_prefix'                  => $command_prefix,
+        'debug'                           => "${debug}",
+        'command_timeout'                 => $command_timeout + 0,
+        'connection_timeout'              => $connection_timeout + 0,
+      }
+    ),
+    order   => '01',
   }
 
   if $ssl_cert_file_content {
+    concat::fragment { 'nrpe ssl fragment':
+    target  => $config,
+    content => epp(
+      'nrpe/nrpe.cfg-ssl.epp',
+      {
+        'ssl_version'      => $ssl_version,
+        'ssl_ciphers'      => $ssl_ciphers,
+        'nrpe_ssl_dir'     => $nrpe_ssl_dir,
+        'ssl_client_certs' => "${ssl_client_certs}",
+        'ssl_logging'      => nrpe::ssl_logging(
+          $ssl_log_startup_params,
+          $ssl_log_remote_ip,
+          $ssl_log_protocol_version,
+          $ssl_log_cipher,
+          $ssl_log_client_cert,
+          $ssl_log_client_cert_details
+        )
+      }
+    ),
+    order   =>  '02',
+    }
+
     file { $nrpe_ssl_dir:
       ensure => directory,
       owner  => 'root',
@@ -111,6 +156,12 @@ class nrpe (
       content => $ssl_privatekey_file_content,
       notify  => Service[$service_name],
     }
+  }
+
+  concat::fragment { 'nrpe includedir':
+    target  => $config,
+    content => "include_dir=${include_dir}\n",
+    order   => '99',
   }
 
   file { 'nrpe_include_dir':

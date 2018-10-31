@@ -11,15 +11,22 @@ define nrpe::command (
   $sudo         = false,
   $sudo_user    = 'root',
 ) {
-
   file { "${include_dir}/${title}.cfg":
     ensure  => $ensure,
-    content => template('nrpe/command.cfg.erb'),
+    content => epp(
+      'nrpe/command.cfg.epp',
+      {
+        'command_name' => $name,
+        'command'      => $command,
+        'sudo'         => $sudo,
+        'sudo_user'    => $sudo_user,
+        'libdir'       => $libdir,
+      },
+    ),
     owner   => 'root',
     group   => $file_group,
     mode    => $file_mode,
     require => Package[$package_name],
     notify  => Service[$service_name],
   }
-
 }
