@@ -5,8 +5,7 @@ describe 'nrpe::command', type: :define do
 
   let :facts do
     { osfamily: 'Debian',
-      architecture: 'x86_64'
-   }
+      architecture: 'x86_64' }
   end
 
   let (:title) { 'check_users' }
