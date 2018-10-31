@@ -16,5 +16,5 @@ describe 'nrpe::plugin', type: :define do
   end
 
   it { is_expected.to compile.with_all_deps }
-  it { should contain_file('/usr/lib/nagios/plugins/check_users') }
+  it { is_expected.to contain_file('/usr/lib/nagios/plugins/check_users') }
 end
