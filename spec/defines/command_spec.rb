@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'nrpe::command', type: :define do
-
     let(:pre_condition) { 'include nrpe' }
 
     let :facts do

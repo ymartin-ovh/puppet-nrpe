@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'nrpe' do
-
   let :facts do
     { osfamily: 'RedHat' ,
       architecture: 'x86_64',}
@@ -19,5 +18,4 @@ describe 'nrpe' do
 
     it { should_not contain_package('nrpe') }
   end
-
 end
