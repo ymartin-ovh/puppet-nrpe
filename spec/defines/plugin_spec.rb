@@ -3,13 +3,15 @@ require 'spec_helper'
 describe 'nrpe::plugin', type: :define do
   let(:pre_condition) { 'include nrpe' }
 
-  let :facts do
-    { osfamily: 'Debian',
-      architecture: 'x86_64' }
+  let(:facts) do
+    {
+      osfamily: 'Debian',
+      architecture: 'x86_64'
+    }
   end
 
-  let (:title) { 'check_users' }
-  let :params do
+  let(:title) { 'check_users' }
+  let(:params) do
     {
       ensure: 'present'
     }
