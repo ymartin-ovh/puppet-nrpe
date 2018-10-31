@@ -53,6 +53,7 @@ class nrpe (
   $ssl_log_cipher              = false,
   $ssl_log_client_cert         = false,
   $ssl_log_client_cert_details = false,
+  $command_file_default_mode   = '0644',
 ) inherits nrpe::params {
 
   if $manage_package {

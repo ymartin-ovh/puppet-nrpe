@@ -19,5 +19,9 @@ describe 'nrpe::command', type: :define do
   end
 
   it { is_expected.to compile.with_all_deps }
-  it { is_expected.to contain_file('/etc/nagios/nrpe.d/check_users.cfg') }
+  it {
+    is_expected.to contain_file('/etc/nagios/nrpe.d/check_users.cfg').with(
+      'mode' => '0644'
+    )
+  }
 end
