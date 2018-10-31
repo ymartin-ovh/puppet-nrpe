@@ -5,13 +5,13 @@ describe 'nrpe::plugin', type: :define do
 
     let :facts do
      { osfamily: 'Debian',
-       architecture: 'x86_64', }
+       architecture: 'x86_64' }
     end
 
     let (:title) { 'check_users' }
     let :params do
       {
-        ensure: 'present',
+        ensure: 'present'
       }
     end
 
