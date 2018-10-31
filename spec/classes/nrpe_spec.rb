@@ -15,7 +15,7 @@ describe 'nrpe' do
   it { should contain_file('nrpe_include_dir').with_ensure('directory') }
 
   context 'when manage_package is false' do
-    let(:params) {{:manage_package => false}}
+    let(:params) {{manage_package: false}}
 
     it { should_not contain_package('nrpe') }
   end
