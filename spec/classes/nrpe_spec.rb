@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'nrpe' do
   let :facts do
     { osfamily: 'RedHat' ,
-      architecture: 'x86_64',}
+      architecture: 'x86_64', }
   end
 
   it { is_expected.to compile.with_all_deps }
