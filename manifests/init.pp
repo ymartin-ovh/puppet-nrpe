@@ -19,41 +19,41 @@
 # Copyright 2013 Computer Action Team, unless otherwise noted.
 #
 class nrpe (
-  Array[String] $allowed_hosts                      = ['127.0.0.1'],
-  String $server_address                            = '0.0.0.0',
-  Integer $command_timeout                          = 60,
-  String $config                                    = $nrpe::params::nrpe_config,
-  String $include_dir                               = $nrpe::params::nrpe_include_dir,
-  Variant[String, Array[String]] $package_name      = $nrpe::params::nrpe_packages,
-  Optional[String] $provider                        = $nrpe::params::nrpe_provider,
-  Boolean $manage_package                           = true,
-  Optional[Boolean] $purge                          = undef,
-  Optional[Boolean] $recurse                        = undef,
-  String $service_name                              = $nrpe::params::nrpe_service,
-  Integer $dont_blame_nrpe                          = $nrpe::params::dont_blame_nrpe,
-  String $log_facility                              = $nrpe::params::log_facility,
-  Integer $server_port                              = $nrpe::params::server_port,
-  Optional[String] $command_prefix                  = $nrpe::params::command_prefix,
-  Integer $debug                                    = $nrpe::params::debug,
-  Integer $connection_timeout                       = $nrpe::params::connection_timeout,
-  Optional[Integer]$allow_bash_command_substitution = $nrpe::params::allow_bash_command_substitution,
-  String $nrpe_user                                 = $nrpe::params::nrpe_user,
-  String $nrpe_group                                = $nrpe::params::nrpe_group,
-  String $nrpe_pid_file                             = $nrpe::params::nrpe_pid_file,
-  String $nrpe_ssl_dir                              = $nrpe::params::nrpe_ssl_dir,
-  Optional[String] $ssl_cert_file_content           = undef,
-  Optional[String] $ssl_privatekey_file_content     = undef,
-  Optional[String] $ssl_cacert_file_content         = undef,
-  String $ssl_version                               = $nrpe::params::ssl_version,
-  Array[String] $ssl_ciphers                        = $nrpe::params::ssl_ciphers,
-  Integer $ssl_client_certs                         = $nrpe::params::ssl_client_certs,
-  Boolean $ssl_log_startup_params                   = false,
-  Boolean $ssl_log_remote_ip                        = false,
-  Boolean $ssl_log_protocol_version                 = false,
-  Boolean $ssl_log_cipher                           = false,
-  Boolean $ssl_log_client_cert                      = false,
-  Boolean $ssl_log_client_cert_details              = false,
-  String  $command_file_default_mode                = '0644',
+  Array[Stdlib::Host]                  $allowed_hosts                   = ['127.0.0.1'],
+  Stdlib::IP::Address                  $server_address                  = '0.0.0.0',
+  Integer[0]                           $command_timeout                 = 60,
+  Stdlib::Absolutepath                 $config                          = $nrpe::params::nrpe_config,
+  Stdlib::Absolutepath                 $include_dir                     = $nrpe::params::nrpe_include_dir,
+  Variant[String[1], Array[String[1]]] $package_name                    = $nrpe::params::nrpe_packages,
+  Optional[String[1]]                  $provider                        = $nrpe::params::nrpe_provider,
+  Boolean                              $manage_package                  = true,
+  Optional[Boolean]                    $purge                           = undef,
+  Optional[Boolean]                    $recurse                         = undef,
+  String[1]                            $service_name                    = $nrpe::params::nrpe_service,
+  Boolean                              $dont_blame_nrpe                 = $nrpe::params::dont_blame_nrpe,
+  Nrpe::Syslogfacility                 $log_facility                    = $nrpe::params::log_facility,
+  Stdlib::Port                         $server_port                     = $nrpe::params::server_port,
+  Optional[Stdlib::Absolutepath]       $command_prefix                  = $nrpe::params::command_prefix,
+  Boolean                              $debug                           = $nrpe::params::debug,
+  Integer[0]                           $connection_timeout              = $nrpe::params::connection_timeout,
+  Optional[Boolean]                    $allow_bash_command_substitution = $nrpe::params::allow_bash_command_substitution,
+  String[1]                            $nrpe_user                       = $nrpe::params::nrpe_user,
+  String[1]                            $nrpe_group                      = $nrpe::params::nrpe_group,
+  Stdlib::Absolutepath                 $nrpe_pid_file                   = $nrpe::params::nrpe_pid_file,
+  Stdlib::Absolutepath                 $nrpe_ssl_dir                    = $nrpe::params::nrpe_ssl_dir,
+  Optional[String[1]]                  $ssl_cert_file_content           = undef,
+  Optional[String[1]]                  $ssl_privatekey_file_content     = undef,
+  Optional[String[1]]                  $ssl_cacert_file_content         = undef,
+  Nrpe::Sslversion                     $ssl_version                     = $nrpe::params::ssl_version,
+  Array[String[1]]                     $ssl_ciphers                     = $nrpe::params::ssl_ciphers,
+  Enum['no','ask','require']           $ssl_client_certs                = $nrpe::params::ssl_client_certs,
+  Boolean                              $ssl_log_startup_params          = false,
+  Boolean                              $ssl_log_remote_ip               = false,
+  Boolean                              $ssl_log_protocol_version        = false,
+  Boolean                              $ssl_log_cipher                  = false,
+  Boolean                              $ssl_log_client_cert             = false,
+  Boolean                              $ssl_log_client_cert_details     = false,
+  Stdlib::Filemode                     $command_file_default_mode       = '0644',
 ) inherits nrpe::params {
 
   if $manage_package {
@@ -79,6 +79,11 @@ class nrpe (
     ensure  => present,
   }
 
+  $_allow_bash_command_substitution = $allow_bash_command_substitution ? {
+    undef   => undef,
+    default => bool2str($allow_bash_command_substitution, '1', '0'),
+  }
+
   concat::fragment { 'nrpe main config':
     target  => $config,
     content => epp(
@@ -91,39 +96,46 @@ class nrpe (
         'nrpe_user'                       => $nrpe_user,
         'nrpe_group'                      => $nrpe_group,
         'allowed_hosts'                   => $allowed_hosts,
-        'dont_blame_nrpe'                 => "${dont_blame_nrpe}",
-        'allow_bash_command_substitution' => $allow_bash_command_substitution,
+        'dont_blame_nrpe'                 => bool2str($dont_blame_nrpe, '1', '0'),
+        'allow_bash_command_substitution' => $_allow_bash_command_substitution,
         'libdir'                          => $nrpe::params::libdir,
         'command_prefix'                  => $command_prefix,
-        'debug'                           => "${debug}",
-        'command_timeout'                 => $command_timeout + 0,
-        'connection_timeout'              => $connection_timeout + 0,
+        'debug'                           => bool2str($debug, '1', '0'),
+        'command_timeout'                 => $command_timeout,
+        'connection_timeout'              => $connection_timeout,
       }
     ),
     order   => '01',
   }
 
   if $ssl_cert_file_content {
+
+    $_ssl_client_certs = $ssl_client_certs ? {
+      'ask'     => '1',
+      'require' => '2',
+      default   => '0', # $ssl_client_certs = 'no'
+    }
+
     concat::fragment { 'nrpe ssl fragment':
-    target  => $config,
-    content => epp(
-      'nrpe/nrpe.cfg-ssl.epp',
-      {
-        'ssl_version'      => $ssl_version,
-        'ssl_ciphers'      => $ssl_ciphers,
-        'nrpe_ssl_dir'     => $nrpe_ssl_dir,
-        'ssl_client_certs' => "${ssl_client_certs}",
-        'ssl_logging'      => nrpe::ssl_logging(
-          $ssl_log_startup_params,
-          $ssl_log_remote_ip,
-          $ssl_log_protocol_version,
-          $ssl_log_cipher,
-          $ssl_log_client_cert,
-          $ssl_log_client_cert_details
-        )
-      }
-    ),
-    order   =>  '02',
+      target  => $config,
+      content => epp(
+        'nrpe/nrpe.cfg-ssl.epp',
+        {
+          'ssl_version'      => $ssl_version,
+          'ssl_ciphers'      => $ssl_ciphers,
+          'nrpe_ssl_dir'     => $nrpe_ssl_dir,
+          'ssl_client_certs' => $_ssl_client_certs,
+          'ssl_logging'      => nrpe::ssl_logging(
+            $ssl_log_startup_params,
+            $ssl_log_remote_ip,
+            $ssl_log_protocol_version,
+            $ssl_log_cipher,
+            $ssl_log_client_cert,
+            $ssl_log_client_cert_details
+          )
+        }
+      ),
+      order   =>  '02',
     }
 
     file { $nrpe_ssl_dir:

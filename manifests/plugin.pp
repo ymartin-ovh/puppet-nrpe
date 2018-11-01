@@ -1,12 +1,12 @@
 #
 define nrpe::plugin (
-  Enum['present', 'absent'] $ensure            = present,
-  Optional[String] $content                    = undef,
-  Optional[String] $source                     = undef,
-  String $mode                                 = $nrpe::params::nrpe_plugin_file_mode,
-  String $libdir                               = $nrpe::params::libdir,
-  Variant[String, Array[String]] $package_name = $nrpe::params::nrpe_packages,
-  String $file_group                           = $nrpe::params::nrpe_files_group,
+  Enum['present', 'absent']            $ensure       = present,
+  Optional[String[1]]                  $content      = undef,
+  Optional[Stdlib::Filesource]         $source       = undef,
+  Stdlib::Filemode                     $mode         = $nrpe::params::nrpe_plugin_file_mode,
+  Stdlib::Absolutepath                 $libdir       = $nrpe::params::libdir,
+  Variant[String[1], Array[String[1]]] $package_name = $nrpe::params::nrpe_packages,
+  String[1]                            $file_group   = $nrpe::params::nrpe_files_group,
 ) {
   file { "${libdir}/${title}":
     ensure  => $ensure,

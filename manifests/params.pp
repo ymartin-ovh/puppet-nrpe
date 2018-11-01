@@ -136,12 +136,12 @@ class nrpe::params {
     }
   }
 
-  $dont_blame_nrpe                 = 0
+  $dont_blame_nrpe                 = false
   $allow_bash_command_substitution = undef # not in very old NRPE
   $log_facility                    = 'daemon'
   $server_port                     = 5666
   $command_prefix                  = undef
-  $debug                           = 0
+  $debug                           = false
   $connection_timeout              = 300
 
   $ssl_version                 = 'TLSv1.2+'
@@ -153,5 +153,5 @@ class nrpe::params {
     'DHE-RSA-AES128-SHA256',
     'DHE-RSA-AES256-SHA256',
   ]
-  $ssl_client_certs            = 1
+  $ssl_client_certs            = 'ask'
 }
