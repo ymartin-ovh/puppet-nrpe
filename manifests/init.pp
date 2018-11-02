@@ -1,23 +1,4 @@
-# == Class: nrpe
-#
-# Full description of class nrpe here.
-#
-# === Parameters
-#
-# Document parameters here.
-#
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# === Examples
-#
-#
-# === Copyright
-#
-# Copyright 2013 Computer Action Team, unless otherwise noted.
-#
+# @summary Installs and configures NRPE
 class nrpe (
   Array[Stdlib::Host]                  $allowed_hosts                   = ['127.0.0.1'],
   Stdlib::IP::Address                  $server_address                  = '0.0.0.0',
@@ -57,140 +38,20 @@ class nrpe (
   Array[String[1]]                     $supplementary_groups            = [],
 ) inherits nrpe::params {
 
-  if $manage_package {
-    package { $package_name:
-      ensure   => installed,
-      provider => $provider,
-      before   => [
-        Service[$service_name],
-        File['nrpe_include_dir'],
-        Concat[$config],
-      ],
-    }
-  }
-
-  unless $supplementary_groups.empty {
-    user { $nrpe_user:
-      gid    => $nrpe_group,
-      groups => $supplementary_groups,
-    }
-    # Let the package create the user.  We're only managing its groups.
-    if $manage_package { Package[$package_name] -> User[$nrpe_user] }
-  }
-
-  service { $service_name:
-    ensure    => running,
-    name      => $service_name,
-    enable    => true,
-    subscribe => Concat[$config],
-  }
-
-  concat { $config:
-    ensure => present,
-  }
-
-  $_allow_bash_command_substitution = $allow_bash_command_substitution ? {
-    undef   => undef,
-    default => bool2str($allow_bash_command_substitution, '1', '0'),
-  }
-
-  concat::fragment { 'nrpe main config':
-    target  => $config,
-    content => epp(
-      'nrpe/nrpe.cfg.epp',
-      {
-        'log_facility'                    => $log_facility,
-        'nrpe_pid_file'                   => $nrpe_pid_file,
-        'server_port'                     => $server_port,
-        'server_address'                  => $server_address,
-        'nrpe_user'                       => $nrpe_user,
-        'nrpe_group'                      => $nrpe_group,
-        'allowed_hosts'                   => $allowed_hosts,
-        'dont_blame_nrpe'                 => bool2str($dont_blame_nrpe, '1', '0'),
-        'allow_bash_command_substitution' => $_allow_bash_command_substitution,
-        'libdir'                          => $nrpe::params::libdir,
-        'command_prefix'                  => $command_prefix,
-        'debug'                           => bool2str($debug, '1', '0'),
-        'command_timeout'                 => $command_timeout,
-        'connection_timeout'              => $connection_timeout,
-      }
-    ),
-    order   => '01',
-  }
-
+  # Extra validation
   if $ssl_cert_file_content {
-
-    $_ssl_client_certs = $ssl_client_certs ? {
-      'ask'     => '1',
-      'require' => '2',
-      default   => '0', # $ssl_client_certs = 'no'
-    }
-
-    concat::fragment { 'nrpe ssl fragment':
-      target  => $config,
-      content => epp(
-        'nrpe/nrpe.cfg-ssl.epp',
-        {
-          'ssl_version'      => $ssl_version,
-          'ssl_ciphers'      => $ssl_ciphers,
-          'nrpe_ssl_dir'     => $nrpe_ssl_dir,
-          'ssl_client_certs' => $_ssl_client_certs,
-          'ssl_logging'      => nrpe::ssl_logging(
-            $ssl_log_startup_params,
-            $ssl_log_remote_ip,
-            $ssl_log_protocol_version,
-            $ssl_log_cipher,
-            $ssl_log_client_cert,
-            $ssl_log_client_cert_details
-          )
-        }
-      ),
-      order   =>  '02',
-    }
-
-    file { $nrpe_ssl_dir:
-      ensure => directory,
-      owner  => 'root',
-      group  => $nrpe_group,
-      mode   => '0750',
-    }
-    file { "${nrpe_ssl_dir}/ca-cert.pem":
-      ensure  => file,
-      owner   => 'root',
-      group   => $nrpe_group,
-      mode    => '0640',
-      content => $ssl_cacert_file_content,
-      notify  => Service[$service_name],
-    }
-    file { "${nrpe_ssl_dir}/nrpe-cert.pem":
-      ensure  => file,
-      owner   => 'root',
-      group   => $nrpe_group,
-      mode    => '0640',
-      content => $ssl_cert_file_content,
-      notify  => Service[$service_name],
-    }
-    file { "${nrpe_ssl_dir}/nrpe-key.pem":
-      ensure  => file,
-      owner   => 'root',
-      group   => $nrpe_group,
-      mode    => '0640',
-      content => $ssl_privatekey_file_content,
-      notify  => Service[$service_name],
-    }
+    assert_type(String[1], $ssl_privatekey_file_content)
+    assert_type(String[1], $ssl_cacert_file_content)
   }
 
-  concat::fragment { 'nrpe includedir':
-    target  => $config,
-    content => "include_dir=${include_dir}\n",
-    order   => '99',
-  }
+  contain nrpe::install
+  contain nrpe::config
+  contain nrpe::service
 
-  file { 'nrpe_include_dir':
-    ensure  => directory,
-    name    => $include_dir,
-    purge   => $purge,
-    recurse => $recurse,
-  }
+  Class['nrpe::install']
+  -> Class['nrpe::config']
+  ~> Class['nrpe::service']
 
+  Class['nrpe::install'] -> Nrpe::Plugin <||>
+  Class['nrpe::install'] -> Nrpe::Command <||> ~> Class['nrpe::service']
 }

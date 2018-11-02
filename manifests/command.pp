@@ -1,17 +1,33 @@
+# @summary Installs NRPE commands
 #
+# @example Install a command called `check_users`
+#   nrpe::command { 'check_users':
+#     ensure  => present,
+#     command => 'check_users -w 5 -c 10',
+#   }
+#
+# @param name
+#   The name of the command.
+# @param command
+#   The command plugin to run and its arguments.
+# @param ensure
+#   Whether to install or remove the command.
+# @param file_mode
+#   The mode to use for the command file.  Defaults to `$nrpe::command_file_default_mode`.
+# @param sudo
+#   Whether the command should use sudo.
+# @param sudo_user
+#   The user to run the command as when using sudo.
 define nrpe::command (
-  String[1]                            $command,
-  Enum['present', 'absent']            $ensure       = present,
-  Stdlib::Absolutepath                 $include_dir  = $nrpe::include_dir,
-  Variant[String[1], Array[String[1]]] $package_name = $nrpe::package_name,
-  String[1]                            $service_name = $nrpe::service_name,
-  Stdlib::Absolutepath                 $libdir       = $nrpe::params::libdir,
-  String[1]                            $file_group   = $nrpe::params::nrpe_files_group,
-  Stdlib::Filemode                     $file_mode    = $nrpe::command_file_default_mode,
-  Boolean                              $sudo         = false,
-  String[1]                            $sudo_user    = 'root',
+  String[1]                  $command,
+  Enum['present', 'absent']  $ensure    = present,
+  Optional[Stdlib::Filemode] $file_mode = undef,
+  Boolean                    $sudo      = false,
+  String[1]                  $sudo_user = 'root',
 ) {
-  file { "${include_dir}/${title}.cfg":
+  include nrpe
+
+  file { "${nrpe::include_dir}/${title}.cfg":
     ensure  => $ensure,
     content => epp(
       'nrpe/command.cfg.epp',
@@ -20,13 +36,11 @@ define nrpe::command (
         'command'      => $command,
         'sudo'         => $sudo,
         'sudo_user'    => $sudo_user,
-        'libdir'       => $libdir,
+        'libdir'       => $nrpe::params::libdir,
       },
     ),
     owner   => 'root',
-    group   => $file_group,
-    mode    => $file_mode,
-    require => Package[$package_name],
-    notify  => Service[$service_name],
+    group   => $nrpe::params::nrpe_files_group,
+    mode    => pick($file_mode, $nrpe::command_file_default_mode),
   }
 }
