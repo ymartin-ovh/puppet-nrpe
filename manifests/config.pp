@@ -1,3 +1,5 @@
+# @summary Configures NRPE
+#
 # @api private
 class nrpe::config
 {
@@ -55,6 +57,6 @@ class nrpe::config
     ensure  => directory,
     name    => $nrpe::include_dir,
     purge   => $nrpe::purge,
-    recurse => $nrpe::recurse,
+    recurse => $nrpe::purge,
   }
 }

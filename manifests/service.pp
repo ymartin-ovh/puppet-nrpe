@@ -1,3 +1,5 @@
+# @summary Manages the NRPE service
+#
 # @api private
 class nrpe::service
 {

@@ -1,4 +1,6 @@
+# @summary Sets defaults based on OS
 #
+# @api private
 class nrpe::params {
 
   $nrpe_provider = $::osfamily ? {

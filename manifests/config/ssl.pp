@@ -1,3 +1,5 @@
+# @summary Configures SSL for NRPE
+#
 # @api private
 class nrpe::config::ssl
 {

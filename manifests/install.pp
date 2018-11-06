@@ -1,3 +1,5 @@
+# @summary Installs required NRPE packages
+#
 # @api private
 class nrpe::install
 {

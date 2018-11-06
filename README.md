@@ -11,6 +11,7 @@
 1. [Module Description - What the module does and why it is useful](#module-description)
 1. [Setup - The basics of getting started with this module](#setup)
 1. [Usage - Configuration options and additional functionality](#usage)
+1. [Reference - Puppet Strings based reference documentation](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
@@ -35,7 +36,7 @@ class { 'nrpe':
 ### nrpe
 
 No NRPE commands are configured by default. To make the configuration useful, at a minimum, declare some [`nrpe::command`](#nrpecommand) resources.
-To purge unmanaged nrpe commands:
+To purge unmanaged NRPE commands:
 
 ```puppet
 class { 'nrpe':
@@ -45,9 +46,11 @@ class { 'nrpe':
 }
 ```
 
+Full documentation for the `nrpe` class is available in the [reference](REFERENCE.md#nrpe) documentation.
+
 ### nrpe::command
 
-This define can be used to add nrpe commands to the include directory for nrpe
+This define can be used to add NRPE commands to the include directory for NRPE.
 
 ```puppet
 nrpe::command { 'check_users':
@@ -56,9 +59,11 @@ nrpe::command { 'check_users':
 }
 ```
 
+Full documentation for the `nrpe::command` type is available in the [reference](REFERENCE.md#nrpecommand) documentation.
+
 ### nrpe::plugin
 
-This define can be used to install nrpe plugins
+This define can be used to install NRPE plugins.
 
 ```puppet
 nrpe::plugin { 'check_mem':
@@ -66,6 +71,13 @@ nrpe::plugin { 'check_mem':
   source => 'puppet:///files/check_mem',
 }
 ```
+
+Full documentation for the `nrpe::plugin` type is available in the [reference](REFERENCE.md#nrpeplugin) documentation.
+
+## Reference
+
+See [REFERENCE.md](REFERENCE.md).
+This module has been documented with [puppet-strings](https://github.com/puppetlabs/puppet-strings).
 
 ## Limitations
 
@@ -81,6 +93,11 @@ nrpe::plugin { 'check_mem':
 ## Development
 
 Improvements and bug fixes are greatly appreciated.
+
+To regenerate the [REFERENCE.MD](REFERENCE.md) file, please run the rake task as follows.
+```console
+ % bundle exec rake strings:generate\[',,,,false,true']
+```
 
 This module is a fork of [pdxcat/nrpe](https://forge.puppet.com/pdxcat/nrpe)
 

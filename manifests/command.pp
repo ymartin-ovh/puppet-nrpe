@@ -13,7 +13,7 @@
 # @param ensure
 #   Whether to install or remove the command.
 # @param file_mode
-#   The mode to use for the command file.  Defaults to `$nrpe::command_file_default_mode`.
+#   The mode to use for the command file.  By default, this parameter is `undef`, and the command file will use `$nrpe::command_file_default_mode`.
 # @param sudo
 #   Whether the command should use sudo.
 # @param sudo_user
