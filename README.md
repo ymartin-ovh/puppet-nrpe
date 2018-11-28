@@ -55,8 +55,17 @@ This define can be used to add NRPE commands to the include directory for NRPE.
 ```puppet
 nrpe::command { 'check_users':
   ensure  => present,
-  command => 'check_users -w 5 -c 10';
+  command => 'check_users -w 5 -c 10',
 }
+```
+
+It is also possible to use hiera data to create these resources by using the base class [`commands`](REFERENCE.md#commands) parameter.
+
+```yaml
+nrpe::commands:
+  check_users:
+    ensure: present
+    command: 'check_users -w 5 -c 10'
 ```
 
 Full documentation for the `nrpe::command` type is available in the [reference](REFERENCE.md#nrpecommand) documentation.
@@ -70,6 +79,15 @@ nrpe::plugin { 'check_mem':
   ensure => present,
   source => 'puppet:///files/check_mem',
 }
+```
+
+It is also possible to use hiera data to create these resources by using the base class [`plugins`](REFERENCE.md#plugins) parameter.
+
+```yaml
+nrpe::plugins:
+  check_users:
+    ensure: present
+    source: 'puppet:///files/check_mem'
 ```
 
 Full documentation for the `nrpe::plugin` type is available in the [reference](REFERENCE.md#nrpeplugin) documentation.
