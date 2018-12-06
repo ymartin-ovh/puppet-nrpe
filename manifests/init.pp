@@ -25,6 +25,10 @@
 #   Specifies the hosts that NRPE will accept connections from.
 # @param server_address
 #   Specifies the IP address of the inteface that NRPE should bind to. Useful when the system has more than one interface.
+# @param commands
+#   A Hash of `nrpe::command` resources you want to create.  Recommended when you want to define `nrpe::command`s in hiera data.
+# @param plugins
+#   A Hash of `nrpe::plugin` resources you want to create.  Recommended when you want to define `nrpe::plugin`s in hiera data.
 # @param command_timeout
 #   Specifies the maximum number of seconds that the NRPE daemon will allow plugins to finish executing before killing them off.
 # @param package_name
@@ -94,6 +98,8 @@
 class nrpe (
   Array[Stdlib::Host]                  $allowed_hosts                   = ['127.0.0.1'],
   Stdlib::IP::Address                  $server_address                  = '0.0.0.0',
+  Hash                                 $commands                        = {},
+  Hash                                 $plugins                         = {},
   Integer[0]                           $command_timeout                 = 60,
   Variant[String[1], Array[String[1]]] $package_name                    = $nrpe::params::nrpe_packages,
   Boolean                              $manage_package                  = true,
@@ -144,6 +150,17 @@ class nrpe (
   Class['nrpe::install']
   -> Class['nrpe::config']
   ~> Class['nrpe::service']
+
+  $commands.each |String $key, Hash $attrs| {
+    nrpe::command { $key:
+      * => $attrs,
+    }
+  }
+  $plugins.each |String $key, Hash $attrs| {
+    nrpe::plugin { $key:
+      * => $attrs,
+    }
+  }
 
   Class['nrpe::install'] -> Nrpe::Plugin <||>
   Class['nrpe::install'] -> Nrpe::Command <||> ~> Class['nrpe::service']

@@ -86,6 +86,22 @@ Specifies the IP address of the inteface that NRPE should bind to. Useful when t
 
 Default value: '0.0.0.0'
 
+##### `commands`
+
+Data type: `Hash`
+
+A Hash of `nrpe::command` resources you want to create.  Recommended when you want to define `nrpe::command`s in hiera data.
+
+Default value: {}
+
+##### `plugins`
+
+Data type: `Hash`
+
+A Hash of `nrpe::plugin` resources you want to create.  Recommended when you want to define `nrpe::plugin`s in hiera data.
+
+Default value: {}
+
 ##### `command_timeout`
 
 Data type: `Integer[0]`
