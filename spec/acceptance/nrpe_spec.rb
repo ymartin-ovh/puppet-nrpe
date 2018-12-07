@@ -12,10 +12,9 @@ describe 'nrpe class' do
   config_file = '/etc/nagios/nrpe.cfg'
 
   describe 'default installation' do
-    it 'works with no errors' do
-      apply_manifest('include nrpe', catch_failures: true)
-      apply_manifest('include nrpe', catch_changes: true)
-    end
+    let(:pp) { 'include nrpe' }
+
+    it_behaves_like 'an idempotent resource'
 
     describe package(package_name) do
       it { is_expected.to be_installed }
@@ -40,15 +39,9 @@ describe 'nrpe class' do
   end
 
   describe 'with custom server port' do
-    it 'updates without errors' do
-      pp = <<-EOS
-      class { 'nrpe':
-        server_port => 9999,
-      }
-      EOS
-      apply_manifest(pp, catch_failures: true)
-      apply_manifest(pp, catch_changes: true)
-    end
+    let(:pp) { "class { 'nrpe': server_port => 9999 }" }
+
+    it_behaves_like 'an idempotent resource'
 
     describe port(5666) do
       it { is_expected.not_to be_listening }
