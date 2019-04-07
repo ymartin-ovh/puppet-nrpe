@@ -5,7 +5,7 @@
 ## v2.1.0 (2016-06-07)
 
 * Take the parameters given to the module into account, rather than the defaults from the params.pp when creating commands.
-* Fix `nrpe::include_dir` bug 
+* Fix `nrpe::include_dir` bug
 * make management of nrpe package optional
 * Use variable for title of service resource to be consistent
 * Allow other users than root to be sudoed
