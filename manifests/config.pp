@@ -38,6 +38,7 @@ class nrpe::config
         'debug'                           => bool2str($nrpe::debug, '1', '0'),
         'command_timeout'                 => $nrpe::command_timeout,
         'connection_timeout'              => $nrpe::connection_timeout,
+        'allow_weak_random_seed'          => bool2str($nrpe::allow_weak_random_seed, '1', '0'),
       }
     ),
     order   => '01',
