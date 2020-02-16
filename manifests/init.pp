@@ -49,6 +49,8 @@
 #   This option determines whether or not debugging messages are logged to the syslog facility.
 # @param connection_timeout
 #   Specifies the maximum number of seconds that the NRPE daemon will wait for a connection to be established before exiting.
+# @param allow_weak_random_seed
+#   Determines whether or not the NRPE daemon will use weak sources of randomness
 # @param allow_bash_command_substitution
 #   Determines whether or not the NRPE daemon will allow clients to specify arguments that contain bash command substitutions of the form `$(...)`. ** ENABLING THIS OPTION IS A HIGH SECURITY RISK! **
 # @param nrpe_user
@@ -110,6 +112,7 @@ class nrpe (
   Optional[Stdlib::Absolutepath]       $command_prefix                  = $nrpe::params::command_prefix,
   Boolean                              $debug                           = $nrpe::params::debug,
   Integer[0]                           $connection_timeout              = $nrpe::params::connection_timeout,
+  Boolean                              $allow_weak_random_seed          = $nrpe::params::allow_weak_random_seed,
   Optional[Boolean]                    $allow_bash_command_substitution = $nrpe::params::allow_bash_command_substitution,
   String[1]                            $nrpe_user                       = $nrpe::params::nrpe_user,
   String[1]                            $nrpe_group                      = $nrpe::params::nrpe_group,

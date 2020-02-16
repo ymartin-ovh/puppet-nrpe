@@ -13,6 +13,7 @@
   Enum['0','1']                  $debug,
   Integer                        $command_timeout,
   Integer                        $connection_timeout,
+  Enum['0','1']                  $allow_weak_random_seed,
 | -%>
 
 #
@@ -187,4 +188,4 @@ connection_timeout=<%= $connection_timeout %>
 # be initialized and a warning will be issued.
 # Values: 0=only seed from /dev/[u]random, 1=also seed from weak randomness
 
-#allow_weak_random_seed=1
+allow_weak_random_seed=<%= $allow_weak_random_seed %>

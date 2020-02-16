@@ -145,6 +145,7 @@ class nrpe::params {
   $command_prefix                  = undef
   $debug                           = false
   $connection_timeout              = 300
+  $allow_weak_random_seed          = true
 
   $ssl_version                 = 'TLSv1.2+'
   $ssl_ciphers                 = [
