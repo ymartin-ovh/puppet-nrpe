@@ -67,7 +67,10 @@
       ]
     },
     {
-      "operatingsystem": "Gentoo"
+      "operatingsystem": "Gentoo",
+      "operatingsystemrelease": [
+        "4"
+      ]
     },
     {
       "operatingsystem": "FreeBSD"
