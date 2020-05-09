@@ -4,6 +4,5 @@
   docker_sets:
     - set: centos6-64
     - set: centos7-64
-    - set: ubuntu1404-64
     - set: ubuntu1604-64
     - set: debian8-64
