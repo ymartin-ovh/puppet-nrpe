@@ -4,7 +4,36 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.0.0](https://github.com/voxpupuli/puppet-nrpe/tree/v3.0.0) (2018-11-06)
+## [v4.0.0](https://github.com/voxpupuli/puppet-nrpe/tree/v4.0.0) (2020-05-10)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nrpe/compare/v3.0.0...v4.0.0)
+
+**Breaking changes:**
+
+- drop Ubuntu 14.04 support [\#26](https://github.com/voxpupuli/puppet-nrpe/pull/26) ([bastelfreak](https://github.com/bastelfreak))
+- modulesync 2.7.0 and drop puppet 4 [\#23](https://github.com/voxpupuli/puppet-nrpe/pull/23) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add `commands` and `plugins` parameters [\#17](https://github.com/voxpupuli/puppet-nrpe/pull/17) ([alexjfisher](https://github.com/alexjfisher))
+
+**Fixed bugs:**
+
+- Allow puppetlabs/concat 6.x, puppetlabs/stdlib 6.x; require at least concat 4.1.0 instead of 3.0.0 [\#24](https://github.com/voxpupuli/puppet-nrpe/pull/24) ([dhoppe](https://github.com/dhoppe))
+
+**Closed issues:**
+
+- Adding interface for Hiera and nrpe resources [\#16](https://github.com/voxpupuli/puppet-nrpe/issues/16)
+
+**Merged pull requests:**
+
+- Use voxpupuli-acceptance [\#33](https://github.com/voxpupuli/puppet-nrpe/pull/33) ([ekohl](https://github.com/ekohl))
+- Enable changing allow\_weak\_random\_seed config param [\#29](https://github.com/voxpupuli/puppet-nrpe/pull/29) ([jorhett](https://github.com/jorhett))
+- drop RHEL5, add Debian8/ubuntu16 support [\#19](https://github.com/voxpupuli/puppet-nrpe/pull/19) ([bastelfreak](https://github.com/bastelfreak))
+- Add more acceptance tests [\#15](https://github.com/voxpupuli/puppet-nrpe/pull/15) ([alexjfisher](https://github.com/alexjfisher))
+- Add basic acceptance tests [\#14](https://github.com/voxpupuli/puppet-nrpe/pull/14) ([alexjfisher](https://github.com/alexjfisher))
+
+## [v3.0.0](https://github.com/voxpupuli/puppet-nrpe/tree/v3.0.0) (2018-11-07)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nrpe/compare/v2.1.1...v3.0.0)
 
@@ -15,13 +44,13 @@ Users migrating from `pdxcat/nrpe` should carefully review any breaking changes 
 
 **Breaking changes:**
 
-- Use modern facts and stdlib `fact\(\)` function [\#10](https://github.com/voxpupuli/puppet-nrpe/pull/10) ([alexjfisher](https://github.com/alexjfisher))
+- Use modern facts and stdlib `fact()` function [\#10](https://github.com/voxpupuli/puppet-nrpe/pull/10) ([alexjfisher](https://github.com/alexjfisher))
 - Add reference docs and remove redundant `recurse` parameter [\#9](https://github.com/voxpupuli/puppet-nrpe/pull/9) ([alexjfisher](https://github.com/alexjfisher))
 - Convert to EPP templates and add Puppet 4+ data types to parameters [\#6](https://github.com/voxpupuli/puppet-nrpe/pull/6) ([alexjfisher](https://github.com/alexjfisher))
 
 **Implemented enhancements:**
 
-- Add `supplementary\_groups` parameter [\#7](https://github.com/voxpupuli/puppet-nrpe/pull/7) ([alexjfisher](https://github.com/alexjfisher))
+- Add `supplementary_groups` parameter [\#7](https://github.com/voxpupuli/puppet-nrpe/pull/7) ([alexjfisher](https://github.com/alexjfisher))
 - Parameterize `nrpe::command` file mode [\#5](https://github.com/voxpupuli/puppet-nrpe/pull/5) ([alexjfisher](https://github.com/alexjfisher))
 
 **Merged pull requests:**

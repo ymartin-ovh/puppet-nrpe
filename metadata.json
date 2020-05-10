@@ -1,6 +1,6 @@
 {
   "name": "puppet-nrpe",
-  "version": "3.0.1-rc0",
+  "version": "4.0.0",
   "source": "https://github.com/voxpupuli/puppet-nrpe",
   "author": "Vox Pupuli",
   "license": "Apache-2.0",
