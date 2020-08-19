@@ -89,6 +89,8 @@
 #   Whether to log if an SSL client has presented a certificate.
 # @param ssl_log_client_cert_details
 #   Whether to log details of client SSL certificates.
+# @param manage_pid_dir
+#   Whether to manage the directory where the PID file should exist.
 # @param config
 #   **Private** You should not need to override this parameter.
 # @param include_dir
@@ -132,6 +134,7 @@ class nrpe (
   Boolean                              $ssl_log_client_cert_details     = false,
   Stdlib::Filemode                     $command_file_default_mode       = '0644',
   Array[String[1]]                     $supplementary_groups            = [],
+  Boolean                              $manage_pid_dir                  = false,
 
   # Private parameters.  You shouldn't need to override these.
   Stdlib::Absolutepath                 $config                          = $nrpe::params::nrpe_config,

@@ -45,6 +45,18 @@ describe 'nrpe' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to have_nrpe__plugin_resource_count(1) }
       end
+
+      context 'when manage_pid_dir is true' do
+        let(:params) { { 'manage_pid_dir' => true } }
+
+        it { is_expected.to contain_file('nrpe_pid_dir') }
+      end
+
+      context 'when manage_pid_dir is false' do
+        let(:params) { { 'manage_pid_dir' => false } }
+
+        it { is_expected.not_to contain_file('nrpe_pid_dir') }
+      end
     end
   end
 end
