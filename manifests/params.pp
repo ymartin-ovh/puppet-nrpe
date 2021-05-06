@@ -118,8 +118,8 @@ class nrpe::params {
     }
     'Gentoo':  {
       $libdir           = fact('os.architecture') ? {
-        /x86_64/ => '/usr/lib64/nagios/plugins',
-        default  => '/usr/lib/nagios/plugins',
+        /amd64|x86_64/ => '/usr/lib64/nagios/plugins',
+        default        => '/usr/lib/nagios/plugins',
       }
       $nrpe_user        = 'nagios'
       $nrpe_group       = 'nagios'
