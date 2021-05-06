@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-nrpe/tree/v5.0.0) (2021-05-06)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-nrpe/compare/v4.0.0...v5.0.0)
+
+**Breaking changes:**
+
+- Add Puppet 7 support; Drop Puppet 5 support; concat/stdlib: Allow 7.x [\#48](https://github.com/voxpupuli/puppet-nrpe/pull/48) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EOL EL 5 & 6 [\#44](https://github.com/voxpupuli/puppet-nrpe/pull/44) ([ekohl](https://github.com/ekohl))
+
+**Implemented enhancements:**
+
+- Support IP addresses with subnets in allowed\_hosts [\#47](https://github.com/voxpupuli/puppet-nrpe/pull/47) ([mleiner](https://github.com/mleiner))
+- Add pid directory management [\#38](https://github.com/voxpupuli/puppet-nrpe/pull/38) ([coreone](https://github.com/coreone))
+
+**Fixed bugs:**
+
+- Add amd64 as recognised Gentoo arch [\#40](https://github.com/voxpupuli/puppet-nrpe/pull/40) ([optiz0r](https://github.com/optiz0r))
+
+**Closed issues:**
+
+- Error when package\_name is customized [\#41](https://github.com/voxpupuli/puppet-nrpe/issues/41)
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-nrpe/tree/v4.0.0) (2020-05-10)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-nrpe/compare/v3.0.0...v4.0.0)
