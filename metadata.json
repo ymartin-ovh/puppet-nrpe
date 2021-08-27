@@ -14,7 +14,7 @@
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.25.1 < 8.0.0"
+      "version_requirement": ">= 4.25.1 < 9.0.0"
     }
   ],
   "requirements": [
@@ -51,13 +51,15 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "8"
+        "10",
+        "11"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "16.04"
+        "18.04",
+        "20.04"
       ]
     },
     {
