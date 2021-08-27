@@ -13,7 +13,7 @@ describe 'nrpe::install' do
         case facts[:osfamily]
         when 'Debian'
           it { is_expected.to contain_package('nagios-nrpe-server').with_ensure('installed') }
-          it { is_expected.to contain_package('nagios-plugins').with_ensure('installed') }
+          it { is_expected.to contain_package('monitoring-plugins').with_ensure('installed') }
         when 'Gentoo'
           it { is_expected.to contain_package('net-analyzer/nrpe').with_ensure('installed') }
           it { is_expected.to contain_package('net-analyzer/nagios-plugins').with_ensure('installed') }
