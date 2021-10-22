@@ -147,6 +147,10 @@ class nrpe::params {
   $allow_weak_random_seed          = true
 
   $ssl_version                 = 'TLSv1.2+'
+
+  # adh is required with cipher list below
+  # see: https://github.com/NagiosEnterprises/nrpe/issues/119
+  $ssl_use_adh                 = 2
   $ssl_ciphers                 = [
     'DHE-RSA-AES128-GCM-SHA256',
     'DHE-RSA-AES256-GCM-SHA384',
